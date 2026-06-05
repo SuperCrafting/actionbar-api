@@ -57,7 +57,7 @@ public final class ActionbarEntry implements Keyed {
 
     this.creationTime = Instant.now();
 
-    this.duration = duration;
+    this.duration = requireNonNull(duration, "Duration cannot be null");
   }
 
   /**
