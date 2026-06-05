@@ -25,7 +25,7 @@ public final class ActionbarUpdaterTask implements Runnable {
   public void run() {
     for (final Player player : Bukkit.getOnlinePlayers()) {
       final Actionbar actionbar = this.service.actionbar(player.getUniqueId());
-      actionbar.entries().removeIf(ActionbarEntry::expired);
+      actionbar.unregisterEntriesIf(ActionbarEntry::expired);
 
       final var entries = Lists.newArrayList(actionbar.entries());
       if (entries.isEmpty()) {

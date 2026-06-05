@@ -7,6 +7,7 @@ import dev.kurai.actionbar.entry.ActionbarEntry;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Predicate;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.UnmodifiableView;
 
@@ -41,6 +42,13 @@ final class ActionbarImpl implements Actionbar {
   @Override
   public void unregisterEntry(final Key key) {
     this.entries.remove(requireNonNull(key, KEY_CANNOT_BE_NULL));
+  }
+
+  @Override
+  public void unregisterEntriesIf(final Predicate<ActionbarEntry> actionbarEntryFilter) {
+    this.entries
+        .values()
+        .removeIf(requireNonNull(actionbarEntryFilter, "Actionbar entry filter cannot be null"));
   }
 
   /** {@inheritDoc} */

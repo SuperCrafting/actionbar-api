@@ -3,17 +3,18 @@ package dev.kurai.actionbar;
 import dev.kurai.actionbar.entry.ActionbarEntry;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.function.Predicate;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Contract;
 
 /**
- * Represents a collection of {@link ActionbarEntry entries} displayed together in a player's
- * action bar. Entries are keyed by an Adventure {@link Key} so they can be individually updated or
- * removed at any time.
+ * Represents a collection of {@link ActionbarEntry entries} displayed together in a player's action
+ * bar. Entries are keyed by an Adventure {@link Key} so they can be individually updated or removed
+ * at any time.
  *
- * <p>Use {@link #create()} to obtain a new instance, or retrieve a player-scoped one through
- * {@link dev.kurai.actionbar.service.ActionbarService#actionbar(java.util.UUID)}.
+ * <p>Use {@link #create()} to obtain a new instance, or retrieve a player-scoped one through {@link
+ * dev.kurai.actionbar.service.ActionbarService#actionbar(java.util.UUID)}.
  */
 public sealed interface Actionbar permits ActionbarImpl {
 
@@ -37,7 +38,7 @@ public sealed interface Actionbar permits ActionbarImpl {
   /**
    * Registers a persistent entry (no expiry) with the given key and text component.
    *
-   * @param key   the unique identifier for this entry
+   * @param key the unique identifier for this entry
    * @param value the text component to display
    */
   default void registerEntry(final Key key, final Component value) {
@@ -47,8 +48,8 @@ public sealed interface Actionbar permits ActionbarImpl {
   /**
    * Registers a time-limited entry that expires after {@code duration} has elapsed.
    *
-   * @param key      the unique identifier for this entry
-   * @param value    the text component to display
+   * @param key the unique identifier for this entry
+   * @param value the text component to display
    * @param duration how long the entry should remain visible; must be positive
    */
   default void registerEntry(final Key key, final Component value, final Duration duration) {
@@ -56,8 +57,8 @@ public sealed interface Actionbar permits ActionbarImpl {
   }
 
   /**
-   * Registers a pre-built {@link ActionbarEntry}. If an entry with the same key already exists
-   * it is replaced.
+   * Registers a pre-built {@link ActionbarEntry}. If an entry with the same key already exists it
+   * is replaced.
    *
    * @param entry the entry to register; must not be {@code null}
    */
@@ -69,6 +70,13 @@ public sealed interface Actionbar permits ActionbarImpl {
    * @param key the key of the entry to remove
    */
   void unregisterEntry(final Key key);
+
+  /**
+   * Removes the entries matching the given filter.
+   *
+   * @param actionbarEntryFilter the filter to apply; must not be {@code null}
+   */
+  void unregisterEntriesIf(final Predicate<ActionbarEntry> actionbarEntryFilter);
 
   /**
    * Returns the entry associated with {@code key}, or {@code null} if none is registered.
