@@ -2,6 +2,8 @@
 
 A lightweight Spigot library for managing multi-entry action bars in Minecraft plugins. Supports multiple concurrent entries per player with optional time-based expiry, rendered as a sorted, separated line: `» entry1 ❘ entry2 «`.
 
+[![](https://jitpack.io/v/kuraiwtf/actionbar-api.svg)](https://jitpack.io/#kuraiwtf/actionbar-api)
+
 ## Features
 
 - Per-player `Actionbar` instances holding multiple named entries
