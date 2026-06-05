@@ -13,10 +13,10 @@ java {
 }
 
 dependencies {
-  compileOnly(platform(libs.adventure.bom))
+  compileOnlyApi(platform(libs.adventure.bom))
   compileOnlyApi(libs.adventure.api)
 
-  compileOnly(platform(libs.guava.bom))
+  compileOnlyApi(platform(libs.guava.bom))
   compileOnlyApi(libs.guava)
 
   compileOnly(libs.spigot.api) {
