@@ -6,7 +6,6 @@ import java.util.Collection;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Contract;
-import org.jspecify.annotations.NonNull;
 
 /**
  * Represents a collection of {@link ActionbarEntry entries} displayed together in a player's
@@ -24,7 +23,7 @@ public sealed interface Actionbar permits ActionbarImpl {
    * @return a fresh {@code Actionbar} instance
    */
   @Contract(value = " -> new", pure = true)
-  static @NonNull Actionbar create() {
+  static Actionbar create() {
     return new ActionbarImpl();
   }
 

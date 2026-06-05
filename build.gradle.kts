@@ -1,25 +1,35 @@
 plugins {
-  java
   `java-library`
   `maven-publish`
 }
 
 java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(25)
+  }
+
   withJavadocJar()
   withSourcesJar()
 }
 
-repositories {
-  mavenCentral()
-  maven("https://repo.hpfxd.com/releases/")
-}
-
 dependencies {
-  compileOnly(libs.spigot)
-  compileOnlyApi(libs.adventure)
+  compileOnly(platform(libs.adventure.bom))
+  compileOnlyApi(libs.adventure.api)
+
+  compileOnly(platform(libs.guava.bom))
   compileOnlyApi(libs.guava)
-  compileOnlyApi(libs.lombok)
-  annotationProcessor(libs.lombok)
+
+  compileOnly(libs.spigot.api) {
+    exclude("commons-lang", "commons-lang")
+    exclude("org.yaml", "snakeyaml")
+    exclude("com.google.code.gson", "gson")
+    exclude("junit", "junit")
+  }
+
+  libs.lombok.let {
+    compileOnlyApi(it)
+    annotationProcessor(it)
+  }
 }
 
 publishing {
