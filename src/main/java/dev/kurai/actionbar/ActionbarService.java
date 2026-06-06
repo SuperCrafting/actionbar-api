@@ -1,10 +1,8 @@
-package dev.kurai.actionbar.service;
-
-import dev.kurai.actionbar.Actionbar;
-import java.util.UUID;
-import java.util.function.Function;
+package dev.kurai.actionbar;
 
 import dev.kurai.actionbar.style.ActionbarStyle;
+import java.util.UUID;
+import java.util.function.Function;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -14,8 +12,9 @@ import org.jetbrains.annotations.Contract;
  * Manages per-player {@link Actionbar} instances and drives the recurring update cycle that sends
  * action-bar packets to online players.
  *
- * <p>Obtain an instance via {@link #create(Plugin, Function)}. The returned service immediately
- * schedules an asynchronous repeating task that refreshes every player's action bar each tick.
+ * <p>Obtain an instance via {@link #actionbarService(Plugin, Function)}. The returned service
+ * immediately schedules an asynchronous repeating task that refreshes every player's action bar
+ * each tick.
  *
  * <p>Example usage:
  *
@@ -35,9 +34,9 @@ public sealed interface ActionbarService permits ActionbarServiceImpl {
    * @return a running {@code ActionbarService} instance
    */
   @Contract(value = "_, _ -> new", pure = true)
-  static ActionbarService create(
+  static ActionbarService actionbarService(
       final Plugin plugin, final Function<Player, Audience> audienceProvider) {
-    return create(plugin, audienceProvider, ActionbarStyle.DEFAULT);
+    return actionbarService(plugin, audienceProvider, ActionbarStyle.DEFAULT);
   }
 
   /**
@@ -51,7 +50,7 @@ public sealed interface ActionbarService permits ActionbarServiceImpl {
    * @return a running {@code ActionbarService} instance
    */
   @Contract(value = "_, _, _ -> new", pure = true)
-  static ActionbarService create(
+  static ActionbarService actionbarService(
       final Plugin plugin,
       final Function<Player, Audience> audienceProvider,
       final ActionbarStyle style) {
