@@ -23,9 +23,9 @@ import net.kyori.adventure.text.Component;
  *
  * <pre>{@code
  * ActionbarStyle style = ActionbarStyle.builder()
- *     .prefix(Component.text("[", NamedTextColor.GOLD))
- *     .separator(Component.text("|", NamedTextColor.GRAY))
- *     .suffix(Component.text("]", NamedTextColor.GOLD))
+ *     .prefixComponent(Component.text("[", NamedTextColor.GOLD))
+ *     .separatorComponent(Component.text("|", NamedTextColor.GRAY))
+ *     .suffixComponent(Component.text("]", NamedTextColor.GOLD))
  *     .build();
  * }</pre>
  */
