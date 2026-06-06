@@ -1,5 +1,6 @@
 package dev.kurai.actionbar.entry;
 
+import static java.time.Instant.now;
 import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
@@ -28,11 +29,11 @@ public final class ActionbarEntry implements Keyed {
   /** Text component rendered in the action bar for this entry. */
   private final Component value;
 
-  /** The wall-clock time at which this entry was constructed. */
-  private final Instant creationTime;
-
   /** How long this entry lives. {@link Duration#ZERO} means the entry never expires. */
   private final Duration duration;
+
+  /** The wall-clock time at which this entry was constructed. */
+  private final Instant creationTime;
 
   /**
    * Creates a persistent entry that never expires.
@@ -55,9 +56,9 @@ public final class ActionbarEntry implements Keyed {
     this.key = requireNonNull(key, "Key cannot be null");
     this.value = requireNonNull(value, "Value component cannot be null");
 
-    this.creationTime = Instant.now();
-
     this.duration = requireNonNull(duration, "Duration cannot be null");
+
+    this.creationTime = now();
   }
 
   /**
@@ -66,6 +67,6 @@ public final class ActionbarEntry implements Keyed {
    * @return {@code true} if expired, {@code false} if still valid or persistent
    */
   public boolean expired() {
-    return !this.duration.isZero() && Instant.now().isAfter(this.creationTime.plus(this.duration));
+    return !this.duration.isZero() && now().isAfter(this.creationTime.plus(this.duration));
   }
 }
