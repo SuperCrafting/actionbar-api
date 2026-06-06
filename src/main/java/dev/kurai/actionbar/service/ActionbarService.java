@@ -3,6 +3,8 @@ package dev.kurai.actionbar.service;
 import dev.kurai.actionbar.Actionbar;
 import java.util.UUID;
 import java.util.function.Function;
+
+import dev.kurai.actionbar.style.ActionbarStyle;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -35,7 +37,14 @@ public sealed interface ActionbarService permits ActionbarServiceImpl {
   @Contract(value = "_, _ -> new", pure = true)
   static ActionbarService create(
       final Plugin plugin, final Function<Player, Audience> audienceProvider) {
-    return new ActionbarServiceImpl(plugin, audienceProvider);
+    return create(plugin, audienceProvider, ActionbarStyle.DEFAULT);
+  }
+
+  static ActionbarService create(
+      final Plugin plugin,
+      final Function<Player, Audience> audienceProvider,
+      final ActionbarStyle style) {
+    return new ActionbarServiceImpl(plugin, audienceProvider, style);
   }
 
   /**
@@ -46,4 +55,6 @@ public sealed interface ActionbarService permits ActionbarServiceImpl {
    * @return the player's action bar; never {@code null}
    */
   Actionbar actionbar(final UUID holder);
+
+  ActionbarStyle style();
 }
