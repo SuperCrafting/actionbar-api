@@ -65,11 +65,11 @@ public sealed interface ActionbarService permits ActionbarServiceImpl {
   ActionbarStyle actionbarStyle();
 
   /**
-   * Returns the {@link Actionbar} associated with {@code holder}, creating one lazily if none
-   * exists yet.
+   * Returns the {@link Actionbar} associated with the holder id, creating one lazily if none exists
+   * yet.
    *
-   * @param holder the player's unique ID
+   * @param holderId the player's unique ID
    * @return the player's action bar; never {@code null}
    */
-  Actionbar actionbar(final UUID holder);
+  Actionbar actionbar(final UUID holderId);
 }

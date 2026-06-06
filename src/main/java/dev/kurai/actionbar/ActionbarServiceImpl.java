@@ -49,14 +49,10 @@ final class ActionbarServiceImpl implements ActionbarService {
             plugin, new ActionbarUpdaterTask(this, audienceProvider), 0L, 1L);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * <p>Creates a new empty {@link Actionbar} on first access for the given {@code holder}.
-   */
+  /** {@inheritDoc} */
   @Override
-  public Actionbar actionbar(final UUID holder) {
+  public Actionbar actionbar(final UUID holderId) {
     return this.actionbars.computeIfAbsent(
-        requireNonNull(holder, "Holder ID cannot be null"), _ -> Actionbar.actionbar());
+        requireNonNull(holderId, "Holder ID cannot be null"), _ -> Actionbar.actionbar());
   }
 }
