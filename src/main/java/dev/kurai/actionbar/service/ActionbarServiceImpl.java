@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import com.google.common.collect.Maps;
 import dev.kurai.actionbar.Actionbar;
+import dev.kurai.actionbar.style.ActionbarStyle;
 import dev.kurai.actionbar.task.ActionbarUpdaterTask;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
+
+import lombok.Getter;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -23,6 +26,8 @@ final class ActionbarServiceImpl implements ActionbarService {
   /** Stores each online player's actionbar, keyed by their unique ID. */
   private final Map<UUID, Actionbar> actionbars = Maps.newConcurrentMap();
 
+  @Getter private final ActionbarStyle style;
+
   /**
    * Constructs the service and immediately schedules the async update task.
    *
@@ -30,9 +35,12 @@ final class ActionbarServiceImpl implements ActionbarService {
    * @param audienceProvider maps a {@link Player} to the target {@link Audience}
    */
   public ActionbarServiceImpl(
-      final Plugin plugin, final Function<Player, Audience> audienceProvider) {
+      final Plugin plugin,
+      final Function<Player, Audience> audienceProvider,
+      final ActionbarStyle style) {
     requireNonNull(plugin, "Plugin cannot be null");
     requireNonNull(audienceProvider, "Audience provider cannot be null");
+    this.style = requireNonNull(style, "Style cannot be null");
 
     Bukkit.getScheduler()
         .runTaskTimerAsynchronously(

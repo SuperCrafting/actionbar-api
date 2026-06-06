@@ -9,6 +9,7 @@ A lightweight Spigot library for managing multi-entry action bars in Minecraft p
 - Sorted display order via Adventure `Key` comparison
 - Asynchronous tick loop powered by Bukkit's scheduler
 - Composable with any Adventure `Audience` provider
+- Customizable `ActionbarStyle` — configure prefix, separator, and suffix components
 
 ## Installation
 
@@ -22,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.github.kuraiwtf:actionbar-api:0.0.5")
+    compileOnly("com.github.kuraiwtf:actionbar-api:0.0.6")
 }
 ```
 
@@ -34,6 +35,18 @@ Instantiate `ActionbarService` once during plugin startup. The second parameter 
 
 ```java
 ActionbarService actionbarService = ActionbarService.create(plugin, player -> player);
+```
+
+To use a custom visual style, pass an `ActionbarStyle` as the third argument:
+
+```java
+ActionbarStyle style = ActionbarStyle.builder()
+    .prefix(Component.text("[", NamedTextColor.GOLD))
+    .separator(Component.text("|", NamedTextColor.GRAY))
+    .suffix(Component.text("]", NamedTextColor.GOLD))
+    .build();
+
+ActionbarService actionbarService = ActionbarService.create(plugin, player -> player, style);
 ```
 
 This immediately starts the async tick task that refreshes every online player's action bar each tick.
@@ -78,8 +91,10 @@ Entries are sorted by their `Key` and rendered as:
 
 | Method | Description |
 |--------|-------------|
-| `ActionbarService.create(Plugin, Function<Player, Audience>)` | Creates the service and starts the update task |
+| `ActionbarService.create(Plugin, Function<Player, Audience>)` | Creates the service with the default style and starts the update task |
+| `ActionbarService.create(Plugin, Function<Player, Audience>, ActionbarStyle)` | Creates the service with a custom style and starts the update task |
 | `actionbar(UUID)` | Returns (or lazily creates) the `Actionbar` for the given player UUID |
+| `style()` | Returns the `ActionbarStyle` used when rendering entries |
 
 ### `Actionbar`
 
@@ -103,3 +118,15 @@ Entries are sorted by their `Key` and rendered as:
 | `duration` | How long the entry lives (`Duration.ZERO` = permanent) |
 | `creationTime` | When the entry was created |
 | `expired()` | Returns `true` if the entry has outlived its duration |
+
+### `ActionbarStyle`
+
+Built via the Lombok builder. All fields are optional; omitted fields fall back to the dark-gray defaults.
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `prefix` | `»` (dark gray) | Component rendered before the first entry |
+| `separator` | `❘` (dark gray) | Component rendered between consecutive entries |
+| `suffix` | `«` (dark gray) | Component rendered after the last entry |
+
+Use `ActionbarStyle.DEFAULT` to get the built-in style without constructing a builder.
