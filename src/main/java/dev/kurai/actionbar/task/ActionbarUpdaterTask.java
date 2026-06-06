@@ -15,6 +15,22 @@ import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+/**
+ * Runnable task that runs every tick to refresh every online player's action bar.
+ *
+ * <p>On each invocation it:
+ *
+ * <ol>
+ *   <li>Evicts expired {@link dev.kurai.actionbar.entry.ActionbarEntry entries} from each player's
+ *       {@link Actionbar}.
+ *   <li>Sorts remaining entries by their {@link net.kyori.adventure.key.Key}.
+ *   <li>Composes a single {@link net.kyori.adventure.text.Component} using the service's
+ *       {@link ActionbarStyle} (prefix, separators, suffix) and sends it via the configured
+ *       audience provider.
+ * </ol>
+ *
+ * <p>Players with no entries are skipped — no packet is sent.
+ */
 @RequiredArgsConstructor
 public final class ActionbarUpdaterTask implements Runnable {
 
