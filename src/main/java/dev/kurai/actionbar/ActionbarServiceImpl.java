@@ -33,7 +33,7 @@ final class ActionbarServiceImpl implements ActionbarService {
    * @param audienceProvider maps a {@link Player} to the target {@link Audience}
    * @param actionbarStyle the visual style to use when rendering entries
    */
-  public ActionbarServiceImpl(
+  ActionbarServiceImpl(
       final Plugin plugin,
       final Function<Player, Audience> audienceProvider,
       final ActionbarStyle actionbarStyle) {
