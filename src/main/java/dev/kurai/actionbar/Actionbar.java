@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.UnmodifiableView;
 
 /**
  * Represents a collection of {@link ActionbarEntry entries} displayed together in a player's action
@@ -33,6 +34,7 @@ public sealed interface Actionbar permits ActionbarImpl {
    *
    * @return a live, mutable view of the entries
    */
+  @UnmodifiableView
   Collection<ActionbarEntry> actionbarEntries();
 
   /**
