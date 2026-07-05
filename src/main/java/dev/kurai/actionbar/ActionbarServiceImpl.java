@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import com.google.common.collect.Maps;
 import dev.kurai.actionbar.style.ActionbarStyle;
 import dev.kurai.actionbar.task.ActionbarUpdaterTask;
-import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
 import lombok.Getter;
 import net.kyori.adventure.audience.Audience;
@@ -24,7 +24,7 @@ final class ActionbarServiceImpl implements ActionbarService {
   @Getter private final ActionbarStyle actionbarStyle;
 
   /** Stores each online player's actionbar, keyed by their unique ID. */
-  private final Map<UUID, Actionbar> actionbars;
+  private final ConcurrentMap<UUID, Actionbar> actionbars;
 
   /**
    * Constructs the service and immediately schedules the async update task.
