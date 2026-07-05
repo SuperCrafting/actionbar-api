@@ -97,7 +97,7 @@ For example, with the custom configuration shown above:
 
 | Method                                                                                     | Description                                                                      |
 | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
-| `ActionbarService.actionbarService(Plugin, Function<Player, Audience>)`                    | Creates the service with `JoinConfiguration.spaces()` and starts the update task |
+| `ActionbarService.actionbarService(Plugin, Function<Player, Audience>)`                    | Creates the service with `JoinConfiguration.commas(true)` and starts the update task |
 | `ActionbarService.actionbarService(Plugin, Function<Player, Audience>, JoinConfiguration)` | Creates the service with a custom join configuration and starts the update task  |
 | `actionbar(UUID)`                                                                          | Returns (or lazily creates) the `Actionbar` for the given holder UUID            |
 | `joinConfiguration()`                                                                      | Returns the `JoinConfiguration` used when rendering entries                      |
