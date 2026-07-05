@@ -2,7 +2,7 @@ package dev.kurai.actionbar;
 
 import dev.kurai.actionbar.entry.ActionbarEntry;
 import java.time.Duration;
-import java.util.Collection;
+import java.util.SequencedCollection;
 import java.util.function.Predicate;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -35,7 +35,7 @@ public sealed interface Actionbar permits ActionbarImpl {
    * @return a live, mutable view of the entries
    */
   @UnmodifiableView
-  Collection<ActionbarEntry> actionbarEntries();
+  SequencedCollection<ActionbarEntry> actionbarEntries();
 
   /**
    * Registers a persistent entry (no expiry) with the given key and text component.
